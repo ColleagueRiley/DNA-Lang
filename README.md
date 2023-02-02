@@ -4,6 +4,8 @@
 # Compiling 
   including the argument `-c` will compile the DNA code, otherwise the code will be run as a script
 
+  including the `-s` argument after the `-c` argument will keep the built c++ file
+
 # base pairs
   ```
   A  T
