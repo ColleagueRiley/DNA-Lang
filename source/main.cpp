@@ -146,6 +146,7 @@ int main(int args, char** argv){
     fclose(of); // close file
 
     system("g++ source.cpp -o output"); // compile source file
-    system("rm source.cpp"); // remove source file
+    if (!(args > 3 && std::string(argv[3]) == "-s"))
+      system("rm source.cpp"); // remove source file
   }
 }
