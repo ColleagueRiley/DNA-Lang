@@ -1,6 +1,9 @@
 # DNA LANG
   Very very simple example DNA based programming language 
 
+# Compiling 
+  including the argument `-c` will compile the DNA code, otherwise the code will be run as a script
+
 # base pairs
   ```
   A  T
