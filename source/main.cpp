@@ -29,7 +29,7 @@ int main(int args, char** argv){
     if (cmd.size() == 3){ // if we've built a full command
       cmds.push_back(cmd); // push the command into the command list
 
-      if (cmd == "ATG")
+      if (cmd == "UAC")
         arg = true; // this is a function which requires args, start collecting args
 
       cmd.clear(); // clear the current cmd because it's already passed
@@ -41,9 +41,13 @@ int main(int args, char** argv){
     }
 
     else if (line.size()){ // if we're not collecting args and the current line is not empty 
-        if (line[3] == basePairs[line[0]]) // make sure the pairs are correct
-            cmd.push_back(line[0]); // push back first letter of the pair if the pair is correct
-
+        if (line[3] == basePairs[line[0]]){ // make sure the pairs are correct
+            char nbRNA = basePairs[line[0]];// rna version of the first nucleobase
+            if (nbRNA == 'T') // change Ts to Us
+                nbRNA = 'U'; 
+          
+            cmd.push_back(nbRNA); // push the RNA nucleobase into the cmd vector
+        }
         else{ // send an error if the pairs are not correct
           std::cout << "Incorrect second base pair at line " << i << std::endl;
           return 0; // stop running
@@ -55,38 +59,38 @@ int main(int args, char** argv){
 
   if (!(args > 2 && std::string(argv[2]) == "-c")) // if we're not compiling
     for (int i = 0; i < cmds.size(); i++){ // loop for how many commands we've collected 
-      if (cmds[i] == "ATG"){ // printing 
+      if (cmds[i] == "UAC"){ // printing 
         std::cout << dArgs[0] << std::endl; // print value 
         dArgs.erase(dArgs.begin()); // erase the arg
       }
       
-      else if (cmds[i] == "ATC"){ // get input 
+      else if (cmds[i] == "UAG"){ // get input 
         std::string in; 
         std::cin >> in; // collect input into blank obj
       }
         
-      else if (cmds[i] == "GCA"){ // if statement
-        if (cmds[i + 2] == "TGC"){ // if the if statement is based on ==
+      else if (cmds[i] == "CGU"){ // if statement
+        if (cmds[i + 2] == "ACG"){ // if the if statement is based on ==
           std::array<std::string, 2> vals; // the two values to check 
           
           for (int j = 0; j < 3; j++){ // get the other values
             if (j == 2) 
               j = 3; // set j to 3 for adding to the index
             
-            if (cmds[i + j] == "AAA") // 0
+            if (cmds[i + j] == "UUU") // 0
               vals[j == 3] = "0"; 
 
-            else if (cmds[i + j] == "GGG") // 1
+            else if (cmds[i + j] == "CCC") // 1
               vals[j == 3] = "1";
 
-            else if (cmds[i + j] == "ATC") // get input
+            else if (cmds[i + j] == "UAG") // get input
               std::cin >> vals[j == 3]; 
           }
 
           i += 3; // add index so we skip these parts
         
           if (vals[0] != vals[1]){ 
-            if (cmds[i + 1] == "ATG") // remove next argument if the next line is a command that requires arguments
+            if (cmds[i + 1] == "UAC") // remove next argument if the next line is a command that requires arguments
               dArgs.erase(dArgs.begin()); 
             
             i++; // add index so next line is skipped
@@ -99,30 +103,30 @@ int main(int args, char** argv){
     std::string src = "#include <iostream>\nstd::string input(){std::string s; std::cin >> s; return s;}\n\n\nint main(){\n   "; // source c++ code to be generated
 
     for (int i = 0; i < cmds.size(); i++){
-      if (cmds[i] == "ATG"){ // output
+      if (cmds[i] == "UAC"){ // output
         src += "\n    std::cout << \"" + dArgs[0] + "\" << std::endl;";
 
         dArgs.erase(dArgs.begin());
       }
 
-      else if (cmds[i] == "ATC") // get input 
+      else if (cmds[i] == "UAG") // get input 
         src += "input()";
 
-      else if (cmds[i] == "GCA"){
+      else if (cmds[i] == "CGU"){
         src += "\n  if ( "; // open if statement
         
-        if (cmds[i + 2] == "TGC"){ // if the if statement is based on ==
+        if (cmds[i + 2] == "ACG"){ // if the if statement is based on ==
           for (int j = 0; j < 3; j++){ // get the other values
             if (j == 2) 
               j = 3; // set j to 3 for adding to the index
             
-            if (cmds[i + j] == "AAA") // 0
+            if (cmds[i + j] == "UUU") // 0
               src += "\"0\""; 
 
-            else if (cmds[i + j] == "GGG") // 1
+            else if (cmds[i + j] == "CCC") // 1
               src += "\"1\"";
 
-            else if (cmds[i + j] == "ATC") // get input
+            else if (cmds[i + j] == "UAG") // get input
               src += "input()";
 
             if (j == 1) 
