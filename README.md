@@ -40,3 +40,11 @@
   G  C
   OUTPUT
   ```
+
+# How it works
+  * Base pairs are checked
+  * first nucleobase of the DNA line is converted to RNA
+  * RNA is send to cmd queue until queue has 3 RNA nucleobases
+  * Function Arguments are collected as needed
+  * cmd queue is read and code is run or converted to c++
+  * [if compiled] c++ code is compiled
