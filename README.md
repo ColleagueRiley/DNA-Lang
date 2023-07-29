@@ -1,8 +1,10 @@
 # DNA LANG
   Very very simple example DNA based programming language 
 
+  converts DNA to RNA then compiles or interprets as code
+
 # Compiling 
-  including the argument `-c` will compile the DNA code, otherwise the code will be run as a script
+  including the argument `-c` (after the file) will compile the DNA code, otherwise the code will be run as a script
 
 # base pairs
   ```
@@ -15,6 +17,8 @@
 
 # Functions
   ATG - print\
+  prints the next (STR) line
+
   ATC - input
 
 # Statements
@@ -36,5 +40,5 @@
   A  T
   T  A
   G  C
-  OUTPUT
+  STR OUTPUT
   ```
