@@ -17,7 +17,7 @@ A  T
 A  T
 T  A
 G  C
-ZERO
+STR ZERO
 
 
 G  C
@@ -39,4 +39,4 @@ G  C
 A  T
 T  A
 G  C
-ONE
+STR ONE
