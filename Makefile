@@ -1,9 +1,6 @@
 all:
-	@make dnaReader
-	@make output
-
-output:
+	@gcc source/main.c -I./include -o dnaReader
 	@./dnaReader main.dna -c
 
-dnaReader:
-	@g++ source/main.cpp -o dnaReader
+clean:
+	rm dnaReader
